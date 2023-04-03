@@ -1,27 +1,81 @@
-# Get editor completions based on the config schema
-"$schema" = 'https://starship.rs/config-schema.json'
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$fill\
 
-# Dracula Starship Theme
+$cmd_duration $jobs $time\
+$line_break\
+$character"""
+
+add_newline = false
+
+[fill]
+symbol = " "
+
+[jobs]
+symbol = ""
+style = "bold red"
+number_threshold = 1
+format = "[$symbol]($style)"
+
+[time]
+disabled = false
+style = "bold white"
+format = "[$time]($style)"
+
+[custom.stunnel]
+when = "ps aux | grep stunnel | grep -v grep"
+command = "ps -o etime= -p $(ps aux | grep stunnel | grep -v grep | awk '{print $2}')"
+style = "red"
+format = "[TUNNEL OPEN for $output]($style)"
+
+[git_metrics]
+disabled = false
+
+[git_commit]
+commit_hash_length = 8
+style = "bold white"
+
+
+
+# Components with Dracula Starship Theme
 [character]
 error_symbol = "[λ](bold #ff5555)"
 success_symbol = "[λ](bold #50fa7b)"
 
 [cmd_duration]
 style = "bold #f1fa8c"
+format = "[$duration]($style)"
 
 [directory]
 style = "bold #50fa7b"
+read_only = " "
+truncation_length = 4
+truncate_to_repo = false
 
 [git_branch]
 style = "bold #ff79c6"
+symbol = " "
+format = "[$symbol$branch]($style) "
 
 [git_status]
 style = "bold #ff5555"
+format = '([\[$all_status$ahead_behind\]]($style) )'
 
 [hostname]
 style = "bold #bd93f9"
+ssh_only = false
+format = "<[$hostname]($style)>"
+trim_at = "-"
+disabled = true
 
 [username]
-format = "[$user]($style) on "
 style_user = "bold #8be9fd"
-  
+format = "[$user]($style) on "
+show_always = false  
