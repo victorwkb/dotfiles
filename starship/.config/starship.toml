@@ -13,8 +13,6 @@ $cmd_duration $jobs $time\
 $line_break\
 $character"""
 
-add_newline = false
-
 [fill]
 symbol = " "
 
@@ -46,8 +44,8 @@ style = "bold white"
 
 # Components with Dracula Starship Theme
 [character]
-error_symbol = "[λ](bold #ff5555)"
-success_symbol = "[λ](bold #50fa7b)"
+error_symbol = "[λ](bold #f1fa8c)"
+success_symbol = "[λ](bold #f1fa8c)"
 
 [cmd_duration]
 style = "bold #f1fa8c"
