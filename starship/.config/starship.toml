@@ -11,6 +11,7 @@ $fill\
 
 $cmd_duration $jobs $time\
 $line_break\
+$python\
 $character"""
 
 [fill]
@@ -40,7 +41,9 @@ disabled = false
 commit_hash_length = 8
 style = "bold white"
 
-
+[python]
+python_binary = ['./venv/bin/python', 'python', 'python3']
+pyenv_version_name = true
 
 # Components with Dracula Starship Theme
 [character]

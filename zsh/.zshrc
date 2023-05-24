@@ -99,4 +99,5 @@ source $ZSH/oh-my-zsh.sh
 source ~/.zsh_profile
 
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
