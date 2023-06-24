@@ -23,3 +23,15 @@ export DOTFILES=$HOME/.dotfiles
 
 addToPathFront $HOME/.local/scripts
 
+. "$HOME/.cargo/env"
+
+alias cat="batcat"
+alias head="coreutils head"
+# exa commands
+alias ls="exa"
+alias ll="exa -l"
+alias la="exa -la"
+alias lla="exa -Tla"
+alias tree="exa -T"
+alias ltree="exa -Tl"
+
