@@ -1,7 +1,9 @@
 #!/usr/bin/bash
 
 alias vim="$VIM"
+alias v="$VIM"
 alias python="python3"
 alias pip="pip3"
 alias wsl="wsl.exe"
 alias dot="cd ~/.dotfiles"
+
