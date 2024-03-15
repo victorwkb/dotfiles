@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 branch_name=$(basename $1)
 session_name=$(tmux display-message -p "#S")

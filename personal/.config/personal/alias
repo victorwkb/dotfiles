@@ -7,7 +7,7 @@ alias pip="pip3"
 alias wsl="wsl.exe"
 alias dot="cd ~/.dotfiles"
 
-alias cat="batcat"
+alias cat="bat"
 alias head="coreutils head"
 # exa commands
 alias ls="exa"
