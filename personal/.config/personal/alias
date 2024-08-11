@@ -9,11 +9,12 @@ alias dot="cd ~/.dotfiles"
 
 alias cat="bat"
 alias head="coreutils head"
-# exa commands
-alias ls="exa"
-alias ll="exa -l"
-alias la="exa -la"
-alias lla="exa -Tla"
-alias tree="exa -T"
-alias ltree="exa -Tl"
+
+# eza commands
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ll="eza -l"
+alias la="eza -la"
+alias lla="eza -Tla"
+alias tree="eza -T"
+alias ltree="eza -Tl"
 

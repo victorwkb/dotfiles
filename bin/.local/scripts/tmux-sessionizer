@@ -4,7 +4,7 @@ if [[ $# -eq 1 ]]; then
 
     selected=$1
 else
-    selected=$(find ~/projects ~/monash ~/.dotfiles/nvim/.config -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/projects ~/monash ~/.dotfiles ~/.dotfiles/nvim/.config -mindepth 1 -maxdepth 1 -type d -not -name '.git' | fzf)
 fi
 
 if [[ -z $selected ]]; then
