@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-export STOW_FOLDERS="alacritty,bin,nvim,tmux,ubuntu,zsh"
+export STOW_FOLDERS="aerospace,alacritty,bin,kitty,nvim,personal,starship,tmux,zsh"
 
 addToPath() {
     if [[ "$PATH" != *"$1"* ]]; then
@@ -9,7 +9,6 @@ addToPath() {
 }
 
 addToPathFront() {
-
     if [[ "$PATH" != *"$1"* ]]; then
         export PATH=$1:$PATH
     fi
