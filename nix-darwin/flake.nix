@@ -34,6 +34,19 @@
       nix.configureBuildUsers = true;
       nix.useDaemon = true;
 
+      system.defaults = {
+        dock.autohide = true;
+        dock.autohide-delay = 0;
+        dock.mru-spaces = false;
+        finder.AppleShowAllExtensions = true;
+        finder.FXPreferredViewStyle = "clmv";
+        screencapture.location = "~/Pictures/screenshots";
+        screensaver.askForPasswordDelay = 10;
+      };
+
+      homebrew.enable = true;
+      homebrew.casks = [
+      ];
     };
   in
   {

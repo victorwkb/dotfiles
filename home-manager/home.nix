@@ -18,14 +18,14 @@
     ".zsh_profile".source = ~/dotfiles/zsh/.zsh_profile;
     ".gitconfig".source = ~/dotfiles/git/.gitconfig;
     ".tmux.conf".source = ~/dotfiles/tmux/.tmux.conf;
-    ".config/aerospace".source = ~/dotfiles/aerospace/.config/aerospace;
-    ".config/alacritty".source = ~/dotfiles/alacritty/.config/alacritty;
-    ".config/kitty".source = ~/dotfiles/kitty/.config/kitty;
-    ".config/nix".source = ~/dotfiles/nix/.config/nix;
-    ".config/nix-darwin".source = ~/dotfiles/nix-darwin/.config/nix-darwin;
-    ".config/nvim".source = ~/dotfiles/nvim/.config/nvim;
-    ".config/personal".source = ~/dotfiles/personal/.config/personal;
-    ".config/starship.toml".source = ~/dotfiles/starship/.config/starship.toml;
+    ".config/aerospace".source = ~/dotfiles/aerospace;
+    ".config/alacritty".source = ~/dotfiles/alacritty;
+    ".config/kitty".source = ~/dotfiles/kitty;
+    ".config/nix".source = ~/dotfiles/nix;
+    ".config/nix-darwin".source = ~/dotfiles/nix-darwin;
+    ".config/nvim".source = ~/dotfiles/nvim;
+    ".config/personal".source = ~/dotfiles/personal;
+    ".config/starship.toml".source = ~/dotfiles/starship.toml;
   };
 
   home.sessionVariables = {
@@ -39,5 +39,12 @@
   programs.home-manager.enable = true;
   programs.zsh = {
     enable = true;
+    initExtra = ''
+      # Add any additional configurations here
+      export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+    '';
   };
 }
