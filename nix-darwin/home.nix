@@ -25,7 +25,7 @@
     ".config/nix-darwin".source = ~/dotfiles/nix-darwin;
     ".config/nvim".source = ~/dotfiles/nvim;
     ".config/personal".source = ~/dotfiles/personal;
-    ".config/starship.toml".source = ~/dotfiles/starship.toml;
+    ".config/starship.toml".source = ~/dotfiles/starship/starship.toml;
   };
 
   home.sessionVariables = {
