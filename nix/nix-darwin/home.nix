@@ -3,32 +3,28 @@
 
 { config, pkgs, ... }:
 
+let
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+in
 {
+  programs.home-manager.enable = true;
+
   home.username = "victorwkb";
   home.homeDirectory = "/Users/victorwkb";
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  home.packages = [
-  ];
+  xdg.enable = true;
+  xdg.configFile.nvim.source = mkOutOfStoreSymlink "/Users/victorwkb/dotfiles/nvim";
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
     ".zshrc".source = ~/dotfiles/zsh/.zshrc;
     ".zsh_profile".source = ~/dotfiles/zsh/.zsh_profile;
     ".gitconfig".source = ~/dotfiles/git/.gitconfig;
     ".tmux.conf".source = ~/dotfiles/tmux/.tmux.conf;
     ".config/aerospace".source = ~/dotfiles/aerospace;
-    ".config/alacritty".source = ~/dotfiles/alacritty;
     ".config/kitty".source = ~/dotfiles/kitty;
-    ".config/nix".source = ~/dotfiles/nix;
-    ".config/nix-darwin".source = ~/dotfiles/nix-darwin;
-    ".config/nvim".source = ~/dotfiles/nvim;
     ".config/personal".source = ~/dotfiles/personal;
     ".config/starship.toml".source = ~/dotfiles/starship/starship.toml;
-  };
-
-  home.sessionVariables = {
   };
 
   home.sessionPath = [
@@ -36,7 +32,6 @@
     "$HOME/.nix-profile/bin"
   ];
 
-  programs.home-manager.enable = true;
   programs.zsh = {
     enable = true;
     initExtra = ''
