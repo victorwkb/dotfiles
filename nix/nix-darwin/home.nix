@@ -1,7 +1,8 @@
-# home.nix
-# home-manager switch
-
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -19,10 +20,8 @@ in
   home.file = {
     ".zshrc".source = ~/dotfiles/zsh/.zshrc;
     ".zsh_profile".source = ~/dotfiles/zsh/.zsh_profile;
-    ".gitconfig".source = ~/dotfiles/git/.gitconfig;
     ".tmux.conf".source = ~/dotfiles/tmux/.tmux.conf;
     ".config/aerospace".source = ~/dotfiles/aerospace;
-    ".config/kitty".source = ~/dotfiles/kitty;
     ".config/personal".source = ~/dotfiles/personal;
     ".config/starship.toml".source = ~/dotfiles/starship/starship.toml;
   };
@@ -32,14 +31,12 @@ in
     "$HOME/.nix-profile/bin"
   ];
 
-  programs.zsh = {
-    enable = true;
-    initExtra = ''
-      # Add any additional configurations here
-      export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
-      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-      fi
-    '';
+  programs = {
+    git = import ../home/git.nix { inherit pkgs; };
+    kitty = import ../home/kitty.nix { inherit pkgs; };
+    starship = import ../home/starship.nix { inherit pkgs; };
+    # tmux = import ../home/tmux.nix { inherit pkgs; };
+    zoxide = import ../home/zoxide.nix { inherit pkgs; };
+    zsh = import ../home/zsh.nix { inherit pkgs; };
   };
 }
