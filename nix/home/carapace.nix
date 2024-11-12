@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
   enable = true;
-  enableZshIntegration = true;
   enableNushellIntegration = true;
+  enableZshIntegration = true;
 }

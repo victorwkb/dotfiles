@@ -80,4 +80,4 @@ addToPathFront() {
     fi
 }
 
-addToPathFront $HOME/.local/scripts
+addToPathFront $HOME/dotfiles/.config/bin/.local/scripts

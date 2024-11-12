@@ -14,6 +14,9 @@
     {
       plugin = catppuccin;
       extraConfig = ''
+        # run nushell through zsh (not as login shell)
+        set -g default-command "exec nu"
+
         # Catppuccin theme
         set -g @catppuccin_flavor 'macchiato'
         set -g @catppuccin_window_status_style "rounded"
@@ -47,7 +50,6 @@
       extraConfig = "set -g @resurrect-capture-pane-contents 'on'";
     }
     sensible
-    vim-tmux-navigator
     yank
   ];
 
@@ -62,8 +64,6 @@
     unbind '"'
     bind - split-window -v
 
-    set -g default-terminal "xterm-256color"
-    set -g terminal-overrides ",xterm-256color:RGB"
     set -g mouse on
 
     set -g detach-on-destroy off
@@ -84,7 +84,7 @@
     # set -g @plugin 'tmux-plugins/tpm'
 
     # tmux sessionizer
-    bind -n C-f run-shell "tmux neww ~/.local/scripts/tmux-sessionizer"
-    bind -r f run-shell "tmux neww ~/.local/scripts/tmux-sessionizer"
+    bind -n C-f run-shell "tmux neww ~/dotfiles/.config/bin/.local/scripts/tmux-sessionizer"
+    bind -r f run-shell "tmux neww ~/dotfiles/.config/bin/.local/scripts/tmux-sessionizer"
   '';
 }

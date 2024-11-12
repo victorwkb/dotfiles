@@ -44,15 +44,25 @@
             pkgs.bat
             pkgs.eza
             pkgs.fastfetch
+            pkgs.nerdfetch
+            pkgs.cbonsai
+            pkgs.cmatrix
+            pkgs.htop
+            pkgs.pipes
             pkgs.fd
             pkgs.fzf
             pkgs.git
             pkgs.kitty
             pkgs.lazygit
             pkgs.neovim
+            pkgs.nodejs_22
+            pkgs.carapace
+            pkgs.nushell
+            pkgs.nu_scripts
             pkgs.ripgrep
             pkgs.vim
             pkgs.tmux
+            pkgs.wget
             # Languages
             pkgs.nil
             pkgs.nixfmt-rfc-style
@@ -67,7 +77,7 @@
             enable = true;
             brews = [ ];
             casks = [
-              "nikitabobko/tap/aerospace"
+              "aerospace"
             ];
             taps = [
               "nikitabobko/tap"
@@ -84,8 +94,6 @@
 
           programs.zsh.enable = true; # default shell on catalina
 
-          security.pam.enableSudoTouchIdAuth = true;
-
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
 
@@ -101,9 +109,11 @@
             finder.FXPreferredViewStyle = "clmv";
             screencapture.location = "~/Pictures/screenshots";
             screensaver.askForPasswordDelay = 10;
-            NSGlobalDomain.InitialKeyRepeat = 1;
+            NSGlobalDomain.InitialKeyRepeat = 2;
             NSGlobalDomain.KeyRepeat = 1;
           };
+
+          security.pam.enableSudoTouchIdAuth = true;
 
           nixpkgs.hostPlatform = "aarch64-darwin";
           nixpkgs.overlays = [
@@ -138,9 +148,9 @@
           nix-homebrew.darwinModules.nix-homebrew
           {
             nix-homebrew = {
-              user = "victorwkb";
               enable = true;
               enableRosetta = true;
+              user = "victorwkb";
               autoMigrate = true;
               taps = {
                 "homebrew/homebrew-core" = homebrew-core;

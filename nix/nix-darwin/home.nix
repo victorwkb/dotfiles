@@ -18,9 +18,10 @@ in
   xdg.configFile.nvim.source = mkOutOfStoreSymlink "/Users/victorwkb/dotfiles/nvim";
 
   home.file = {
-    ".zshrc".source = ../../zsh/.zshrc;
-    ".config/aerospace".source = ../../aerospace/aerospace.toml;
-    ".config/starship.toml".source = ../../starship/starship.toml;
+    ".zshrc".source = ../../.config/zsh/.zshrc;
+    ".config/aerospace".source = ../../.config/aerospace/aerospace.toml;
+    ".config/starship.toml".source = ../../.config/starship/starship.toml;
+    ".config/nushell/theme.nu".source = "${pkgs.nu_scripts}/share/nu_scripts/themes/nu_themes/catppuccin-macchiato.nu";
   };
 
   home.sessionPath = [
@@ -35,5 +36,7 @@ in
     tmux = import ../home/tmux.nix { inherit pkgs; };
     zoxide = import ../home/zoxide.nix { inherit pkgs; };
     zsh = import ../home/zsh.nix { inherit pkgs; };
+    nushell = import ../home/nushell.nix { inherit pkgs; };
+    carapace = import ../home/carapace.nix { inherit pkgs; };
   };
 }
