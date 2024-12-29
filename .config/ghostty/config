@@ -1,0 +1,14 @@
+theme = catppuccin-macchiato
+background-opacity = 0.85
+background-blur-radius = 20
+font-size = 16
+font-family = "SF Mono"
+font-thicken = true
+mouse-hide-while-typing = true
+macos-option-as-alt = true
+macos-titlebar-style = hidden
+window-decoration = true
+window-padding-balance = true
+window-padding-x = 2
+window-padding-y = 2
+window-padding-color = background

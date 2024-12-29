@@ -37,10 +37,12 @@
       configuration =
         { pkgs, ... }:
         {
-          # List packages installed in system profile. To search by name, run:
+          nixpkgs.config.allowUnfree = true;
+          # List packages installed in system profile. To searchby name, run:
           # $ nix-env -qaP | grep wget
           environment.systemPackages = [
             pkgs.awscli
+            pkgs.google-cloud-sdk
             pkgs.bat
             pkgs.eza
             pkgs.fastfetch
@@ -52,7 +54,7 @@
             pkgs.fd
             pkgs.fzf
             pkgs.git
-            pkgs.kitty
+            # pkgs.kitty
             pkgs.lazygit
             pkgs.neovim
             pkgs.nodejs_22
@@ -64,8 +66,10 @@
             pkgs.tmux
             pkgs.wget
             # Languages
+            pkgs.terraform
             pkgs.nil
             pkgs.nixfmt-rfc-style
+            pkgs.poetry
           ];
 
           users.users.victorwkb = {
@@ -75,10 +79,17 @@
 
           homebrew = {
             enable = true;
-            brews = [ ];
+            brews = [
+              "mas"
+            ];
             casks = [
               "aerospace"
+              "ghostty"
+              "jordanbaird-ice"
+              "font-sf-mono"
             ];
+            masApps = {
+            };
             taps = [
               "nikitabobko/tap"
             ];
@@ -109,8 +120,8 @@
             finder.FXPreferredViewStyle = "clmv";
             screencapture.location = "~/Pictures/screenshots";
             screensaver.askForPasswordDelay = 10;
-            NSGlobalDomain.InitialKeyRepeat = 2;
-            NSGlobalDomain.KeyRepeat = 1;
+            NSGlobalDomain.InitialKeyRepeat = 10;
+            NSGlobalDomain.KeyRepeat = 3;
           };
 
           security.pam.enableSudoTouchIdAuth = true;
@@ -159,7 +170,6 @@
             };
           }
         ];
-
       };
 
       # Expose the package set, including overlays, for convenience.

@@ -8,8 +8,6 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in
 {
-  programs.home-manager.enable = true;
-
   home.username = "victorwkb";
   home.homeDirectory = "/Users/victorwkb";
   home.stateVersion = "24.05"; # Please read the comment before changing.
@@ -19,9 +17,9 @@ in
 
   home.file = {
     ".zshrc".source = ../../.config/zsh/.zshrc;
-    ".config/aerospace".source = ../../.config/aerospace/aerospace.toml;
-    ".config/starship.toml".source = ../../.config/starship/starship.toml;
+    ".config/aerospace/aerospace.toml".source = ../../.config/aerospace/aerospace.toml;
     ".config/nushell/theme.nu".source = "${pkgs.nu_scripts}/share/nu_scripts/themes/nu_themes/catppuccin-macchiato.nu";
+    ".config/ghostty/config".source = ../../.config/ghostty/config;
   };
 
   home.sessionPath = [
@@ -30,8 +28,9 @@ in
   ];
 
   programs = {
+    home-manager.enable = true;
     git = import ../home/git.nix { inherit pkgs; };
-    kitty = import ../home/kitty.nix { inherit pkgs; };
+    # kitty = import ../home/kitty.nix { inherit pkgs; };
     starship = import ../home/starship.nix { inherit pkgs; };
     tmux = import ../home/tmux.nix { inherit pkgs; };
     zoxide = import ../home/zoxide.nix { inherit pkgs; };
