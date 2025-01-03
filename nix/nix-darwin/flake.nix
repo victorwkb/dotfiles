@@ -65,11 +65,10 @@
             pkgs.vim
             pkgs.tmux
             pkgs.wget
-            # Languages
             pkgs.terraform
             pkgs.nil
             pkgs.nixfmt-rfc-style
-            pkgs.poetry
+            pkgs.direnv
           ];
 
           users.users.victorwkb = {

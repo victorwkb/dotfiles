@@ -37,5 +37,6 @@ in
     zsh = import ../home/zsh.nix { inherit pkgs; };
     nushell = import ../home/nushell.nix { inherit pkgs; };
     carapace = import ../home/carapace.nix { inherit pkgs; };
+    yazi = import ../home/yazi.nix { inherit pkgs; };
   };
 }
