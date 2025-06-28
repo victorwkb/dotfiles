@@ -31,6 +31,6 @@
     lla = "eza -Tla";
     tree = "eza -T";
     ltree = "eza -Tl";
-    drs = "darwin-rebuild switch --flake ~/dotfiles/nix/nix-darwin";
+    drs = "sudo darwin-rebuild switch --flake ~/dotfiles/nix/nix-darwin";
   };
 }

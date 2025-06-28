@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, catppuccin, ... }:
 {
   enable = true;
   baseIndex = 1;
@@ -6,17 +6,14 @@
   keyMode = "vi";
   newSession = true;
   secureSocket = true;
-  shell = "${pkgs.zsh}/bin/zsh";
+  # shell = "${pkgs.zsh}/bin/zsh";
+  shell = "${pkgs.nushell}/bin/nu";
   shortcut = "a";
   escapeTime = 0;
 
   plugins = with pkgs.tmuxPlugins; [
-    {
-      plugin = catppuccin;
+    { plugin = catppuccin;
       extraConfig = ''
-        # run nushell through zsh (not as login shell)
-        set -g default-command "exec nu"
-
         # Catppuccin theme
         set -g @catppuccin_flavor 'macchiato'
         set -g @catppuccin_window_status_style "rounded"
@@ -43,7 +40,6 @@
     {
       plugin = continuum;
       extraConfig = "set -g @continuum-restore 'on'";
-
     }
     {
       plugin = resurrect;
@@ -54,6 +50,9 @@
   ];
 
   extraConfig = ''
+    set-option -g default-shell ${pkgs.nushell}/bin/nu
+    set-option -g default-command ${pkgs.nushell}/bin/nu
+
     # fast reload
     unbind r
     bind r source-file $HOME/.config/tmux/tmux.conf
@@ -79,9 +78,6 @@
     bind -r k select-pane -U
     bind -r l select-pane -R
     bind -r m resize-pane -Z
-
-    # tpm plugin
-    # set -g @plugin 'tmux-plugins/tpm'
 
     # tmux sessionizer
     bind -n C-f run-shell "tmux neww ~/dotfiles/.config/bin/.local/scripts/tmux-sessionizer"

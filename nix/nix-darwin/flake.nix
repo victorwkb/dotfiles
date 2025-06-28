@@ -54,7 +54,6 @@
             pkgs.fd
             pkgs.fzf
             pkgs.git
-            # pkgs.kitty
             pkgs.lazygit
             pkgs.neovim
             pkgs.nodejs_22
@@ -63,9 +62,7 @@
             pkgs.nu_scripts
             pkgs.ripgrep
             pkgs.vim
-            pkgs.tmux
             pkgs.wget
-            pkgs.terraform
             pkgs.nil
             pkgs.nixfmt-rfc-style
             pkgs.direnv
@@ -75,6 +72,8 @@
             name = "victorwkb";
             home = "/Users/victorwkb";
           };
+          
+          system.primaryUser = "victorwkb";
 
           homebrew = {
             enable = true;
@@ -96,8 +95,6 @@
             onActivation.autoUpdate = true;
             onActivation.upgrade = true;
           };
-
-          services.nix-daemon.enable = true;
 
           # Necessary for using flakes on this system.
           nix.settings.experimental-features = "nix-command flakes";
@@ -122,8 +119,6 @@
             NSGlobalDomain.InitialKeyRepeat = 10;
             NSGlobalDomain.KeyRepeat = 3;
           };
-
-          security.pam.enableSudoTouchIdAuth = true;
 
           nixpkgs.hostPlatform = "aarch64-darwin";
           nixpkgs.overlays = [
