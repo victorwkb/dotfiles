@@ -27,8 +27,8 @@ in
   xdg.configFile.nvim.source = mkOutOfStoreSymlink "/Users/victorwkb/dotfiles/nvim";
 
   home.file = {
-    ".zshrc".source = ../../.config/zsh/.zshrc;
-    ".config/aerospace/aerospace.toml".source = ../../.config/aerospace/aerospace.toml;
+    # ".zshrc".source = ../../.config/zsh/.zshrc;
+    # ".config/aerospace/aerospace.toml".source = ../../.config/aerospace/aerospace.toml;
     ".config/nushell/theme.nu".source =
       "${pkgs.nu_scripts}/share/nu_scripts/themes/nu_themes/catppuccin-macchiato.nu";
     ".config/ghostty/config".source = ../../.config/ghostty/config;

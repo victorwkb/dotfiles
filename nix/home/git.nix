@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
   enable = true;
-  userName = "victorwkb";
-  userEmail = "victorwkb@gmail.com";
+  userName = "victorgoh-zen";
+  userEmail = "victor.goh@zenenergy.com.au";
 }

@@ -58,10 +58,26 @@
             pkgs.direnv
             pkgs.nix-ld-rs
             pkgs.gcc
+            pkgs.gnumake
+            pkgs.cmake
+            pkgs.clang
+            pkgs.uv
           ];
+
+          environment.sessionVariables = {
+            DISPLAY = ":0";
+            WAYLAND_DISPLAY = "wayland-0";
+            XDG_RUNTIME_DIR = "/mnt/wslg/runtime-dir";
+          };
 
           programs.nix-ld.enable = true;
           programs.zsh.enable = true;
+
+          services.xserver.enable = true;
+
+          programs.hyprland.enable = true;
+          services.displayManager.sddm.enable = true;
+          services.displayManager.defaultSession = "hyprland";
 
           users.users.vicwkb = {
             isNormalUser = true;
@@ -93,13 +109,13 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          configuration
           nixos-wsl.nixosModules.default
           {
-            system.stateVersion = "24.05";
+            system.stateVersion = "25.05";
             wsl.enable = true;
             wsl.defaultUser = "vicwkb";
           }
-          configuration
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -108,6 +124,6 @@
           }
         ];
       };
-      nixosPackages = self.nixosConfigurations."Zen-HP".pkgs;
+      nixosPackages = self.nixosConfigurations.nixos.pkgs;
     };
 }
