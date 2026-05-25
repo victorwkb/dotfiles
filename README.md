@@ -93,3 +93,4 @@ tmux new -s main        # tmux with nushell as default shell
 | `SFMono Nerd Font Lig` not found in ghostty | Run `fc-cache -fv` after first rebuild to refresh the font cache. |
 | `sudo` works without password | Intentional — `security.sudo.wheelNeedsPassword = false` is set for `vicwkb`. |
 | Existing dotfiles renamed to `.backup` | `home-manager.backupFileExtension = "backup"` is set. Conflicting files are renamed rather than blocking the rebuild. |
+| Need to recover after a bad rebuild | Log in as the preserved `nixos` user: `wsl -d NixOS -u nixos`, then fix and re-run `sudo nixos-rebuild switch`. |
