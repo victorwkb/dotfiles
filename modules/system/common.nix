@@ -28,5 +28,6 @@
     pkgs.nil
     pkgs.nixfmt
     pkgs.claude-code
+    pkgs.gh
   ];
 }
