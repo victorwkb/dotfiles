@@ -106,7 +106,7 @@
           {
             system.stateVersion = "25.05";
             wsl.enable = true;
-            wsl.defaultUser = "vicwkb";
+            wsl.defaultUser = "nixos";
           }
         ];
       };
