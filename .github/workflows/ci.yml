@@ -7,6 +7,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   check-darwin:
     name: nix flake check (darwin)
@@ -18,9 +21,6 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
-
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v9
 
       - name: Check flake
         run: nix flake check --show-trace
@@ -35,9 +35,6 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
-
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v9
 
       - name: Check flake
         run: nix flake check --show-trace
