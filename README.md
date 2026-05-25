@@ -15,7 +15,7 @@ Go from a fresh Windows machine to a fully configured NixOS-WSL environment.
 - Windows 10/11 with WSL2 enabled
 - Download the latest NixOS-WSL installer from:  
   https://github.com/nix-community/NixOS-WSL/releases  
-  Get `nixos-wsl.tar.gz`
+  Get `nixos.wsl` (not the `.tar.gz`)
 
 ---
 
@@ -24,7 +24,7 @@ Go from a fresh Windows machine to a fully configured NixOS-WSL environment.
 Run in **PowerShell**:
 
 ```powershell
-wsl --import NixOS $env:USERPROFILE\NixOS\ $env:USERPROFILE\Downloads\nixos-wsl.tar.gz
+wsl --install --from-file $env:USERPROFILE\Downloads\nixos.wsl
 wsl -d NixOS
 ```
 
@@ -39,7 +39,7 @@ curl -fsSL https://raw.githubusercontent.com/victorwkb/dotfiles/main/scripts/boo
 ```
 
 This will:
-1. Enable nix flakes by appending to `/etc/nix/nix.conf`
+1. Enable nix flakes by writing to `/root/.config/nix/nix.conf` (system `/etc/nix/nix.conf` is read-only on NixOS)
 2. Run `nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'`
 
 > **Note:** The first run fetches all flake inputs including large homebrew taps (unified flake). Expect several minutes.

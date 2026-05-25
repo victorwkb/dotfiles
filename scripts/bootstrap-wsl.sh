@@ -2,7 +2,8 @@
 set -euo pipefail
 
 echo "==> Enabling nix flakes..."
-sudo sh -c 'echo "extra-experimental-features = nix-command flakes" >> /etc/nix/nix.conf'
+sudo mkdir -p /root/.config/nix
+echo 'extra-experimental-features = nix-command flakes' | sudo tee /root/.config/nix/nix.conf > /dev/null
 
 echo "==> Switching to dotfiles config from GitHub..."
 echo "    (First run fetches all flake inputs — expect several minutes)"
