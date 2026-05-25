@@ -40,7 +40,9 @@ curl -fsSL https://raw.githubusercontent.com/victorwkb/dotfiles/main/scripts/boo
 
 This will:
 1. Enable nix flakes by writing to `/root/.config/nix/nix.conf` (system `/etc/nix/nix.conf` is read-only on NixOS)
-2. Run `nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'`
+2. Run `nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos-bootstrap'`
+
+The bootstrap config is intentionally minimal (git, vim, wget, curl, nix-ld) — no overlays, no home-manager, no heavy packages. This guarantees a bootable system on the first switch.
 
 > **Note:** The first run fetches all flake inputs including large homebrew taps (unified flake). Expect several minutes.
 
@@ -54,14 +56,18 @@ You will now be logged in as `vicwkb`.
 
 ---
 
-### Step 3 — Clone dotfiles locally
-
-The GitHub bootstrap is complete but local rebuilds need the repo on disk:
+### Step 3 — Clone dotfiles and apply full config
 
 ```sh
 git clone https://github.com/victorwkb/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 git submodule update --init --recursive
+```
+
+Then upgrade to the full NixOS config (installs all tools, home-manager, shell, etc.):
+
+```sh
+sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'
 ```
 
 From here use the shell aliases for rebuilds:
