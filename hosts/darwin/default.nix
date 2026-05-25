@@ -25,7 +25,7 @@
     ];
     masApps = { };
     taps = [ "nikitabobko/tap" ];
-    onActivation.cleanup = "zap";
+    onActivation.cleanup = "uninstall";
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
   };
