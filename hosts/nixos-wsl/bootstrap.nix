@@ -10,8 +10,6 @@
     pkgs.curl
   ];
 
-  programs.nix-ld.enable = true;
-
   security.sudo.wheelNeedsPassword = false;
   users.mutableUsers = true;
 
