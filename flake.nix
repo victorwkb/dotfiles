@@ -124,21 +124,9 @@
               };
 
               nixpkgs.hostPlatform = "aarch64-darwin";
-              nixpkgs.overlays = [
-                (final: prev: {
-                  sf-mono-liga-bin = prev.stdenvNoCC.mkDerivation {
-                    pname = "sf-mono-liga-bin";
-                    version = "dev";
-                    src = sf-mono-liga-src;
-                    dontConfigure = true;
-                    installPhase = ''
-                      mkdir -p $out/share/fonts/opentype
-                      cp -R $src/*.otf $out/share/fonts/opentype/
-                    '';
-                  };
-                })
-                claude-code.overlays.default
-              ];
+              nixpkgs.overlays =
+                (import ./overlays/default.nix { inherit inputs; })
+                ++ [ claude-code.overlays.default ];
             }
           )
           home-manager.darwinModules.home-manager
@@ -225,20 +213,7 @@
 
               nix.settings.experimental-features = "nix-command flakes";
 
-              nixpkgs.overlays = [
-                (final: prev: {
-                  sf-mono-liga-bin = prev.stdenvNoCC.mkDerivation {
-                    pname = "sf-mono-liga-bin";
-                    version = "dev";
-                    src = sf-mono-liga-src;
-                    dontConfigure = true;
-                    installPhase = ''
-                      mkdir -p $out/share/fonts/opentype
-                      cp -R $src/*.otf $out/share/fonts/opentype/
-                    '';
-                  };
-                })
-              ];
+              nixpkgs.overlays = import ./overlays/default.nix { inherit inputs; };
             }
           )
           nixos-wsl.nixosModules.default
