@@ -17,4 +17,9 @@ in
   xdg.configFile.nvim.source = mkOutOfStoreSymlink "/Users/victorwkb/dotfiles/nvim";
 
   home.file.".config/aerospace/aerospace.toml".source = ../../.config/aerospace/aerospace.toml;
+
+  programs.git.settings.user = {
+    name = "victorwkb";
+    email = "victorwkb@gmail.com";
+  };
 }

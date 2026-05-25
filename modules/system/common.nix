@@ -29,5 +29,6 @@
     pkgs.nixfmt
     pkgs.claude-code
     pkgs.gh
+    pkgs.obsidian
   ];
 }

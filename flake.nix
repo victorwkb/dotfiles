@@ -29,7 +29,6 @@
     # nixos-wsl inputs
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    ghostty.url = "github:ghostty-org/ghostty";
   };
 
   outputs =
@@ -44,10 +43,9 @@
       sf-mono-liga-src,
       claude-code,
       nixos-wsl,
-      ghostty,
     }:
     {
-      darwinConfigurations."Victors-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         specialArgs = { inherit inputs; };
         modules = [
@@ -94,8 +92,5 @@
           }
         ];
       };
-
-      darwinPackages = self.darwinConfigurations."Victors-MacBook-Pro".pkgs;
-      nixosPackages = self.nixosConfigurations.nixos.pkgs;
     };
 }

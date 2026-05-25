@@ -18,4 +18,10 @@ in
 
   programs.ghostty.enable = true;
   programs.zsh.dotDir = config.home.homeDirectory;
+  programs.zsh.shellAliases.wsl = "wsl.exe";
+
+  programs.git.settings.user = {
+    name = "victorgoh-zen";
+    email = "victor.goh@zenenergy.com.au";
+  };
 }

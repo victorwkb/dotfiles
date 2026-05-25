@@ -19,7 +19,6 @@
   };
 
   programs.nix-ld.enable = true;
-  services.xserver.enable = true;
 
   users.users.vicwkb = {
     isNormalUser = true;

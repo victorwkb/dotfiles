@@ -31,8 +31,9 @@
     lla = "eza -Tla";
     tree = "eza -T";
     ltree = "eza -Tl";
-    drs = "sudo darwin-rebuild switch --flake ~/dotfiles#Victors-MacBook-Pro";
-    drsm = "sudo darwin-rebuild switch --flake 'github:victorwkb/dotfiles#Victors-MacBook-Pro'";
+    drs = "sudo darwin-rebuild switch --flake ~/dotfiles#macos";
+    drsm = "sudo darwin-rebuild switch --flake 'github:victorwkb/dotfiles/main#macos'";
     nrs = "sudo nixos-rebuild switch --flake ~/dotfiles#nixos";
+    nrsm = "sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'";
   };
 }
