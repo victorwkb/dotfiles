@@ -28,7 +28,5 @@
   };
   users.groups.vicwkb = { };
 
-  nixpkgs.overlays =
-    (import ../../overlays/default.nix { inherit inputs; })
-    ++ [ inputs.claude-code.overlays.default ];
+  nixpkgs.overlays = import ../../overlays/default.nix { inherit inputs; };
 }
