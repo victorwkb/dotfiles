@@ -20,11 +20,14 @@
 
   programs.nix-ld.enable = true;
 
+  security.sudo.wheelNeedsPassword = false;
+
   users.users.vicwkb = {
     isNormalUser = true;
     group = "vicwkb";
     extraGroups = [ "wheel" ];
-    password = "";
+    initialPassword = "nixos";
+    shell = pkgs.zsh;
   };
   users.groups.vicwkb = { };
 
