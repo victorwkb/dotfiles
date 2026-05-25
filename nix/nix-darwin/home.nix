@@ -42,7 +42,6 @@ in
   programs = {
     home-manager.enable = true;
     git = import ../home/git.nix { inherit pkgs; };
-    # kitty = import ../home/kitty.nix { inherit pkgs; };
     starship = import ../home/starship.nix { inherit pkgs; };
     tmux = import ../home/tmux.nix { inherit pkgs catppuccin; };
     zoxide = import ../home/zoxide.nix { inherit pkgs; };
@@ -50,5 +49,6 @@ in
     nushell = import ../home/nushell.nix { inherit pkgs; };
     carapace = import ../home/carapace.nix { inherit pkgs; };
     yazi = import ../home/yazi.nix { inherit pkgs; };
+    vscode = import ../home/vscode.nix { inherit pkgs; };
   };
 }
