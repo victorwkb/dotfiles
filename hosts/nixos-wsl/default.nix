@@ -1,33 +1,10 @@
 { pkgs, inputs, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
+  imports = [ ../../modules/system/common.nix ];
 
   environment.systemPackages = [
-    pkgs.bat
-    pkgs.eza
-    pkgs.fastfetch
-    pkgs.nerdfetch
-    pkgs.cbonsai
-    pkgs.cmatrix
-    pkgs.htop
-    pkgs.pipes
-    pkgs.fd
-    pkgs.fzf
-    pkgs.git
-    pkgs.lazygit
-    pkgs.neovim
-    pkgs.nodejs_22
-    pkgs.carapace
-    pkgs.nushell
-    pkgs.nu_scripts
-    pkgs.ripgrep
-    pkgs.vim
     pkgs.tmux
-    pkgs.wget
-    pkgs.nil
-    pkgs.nixfmt-rfc-style
     pkgs.direnv
-    pkgs.nix-ld-rs
     pkgs.gcc
     pkgs.gnumake
     pkgs.cmake
@@ -42,7 +19,6 @@
   };
 
   programs.nix-ld.enable = true;
-  programs.zsh.enable = true;
   services.xserver.enable = true;
 
   users.users.vicwkb = {
@@ -53,7 +29,7 @@
   };
   users.groups.vicwkb = { };
 
-  nix.settings.experimental-features = "nix-command flakes";
-
-  nixpkgs.overlays = import ../../overlays/default.nix { inherit inputs; };
+  nixpkgs.overlays =
+    (import ../../overlays/default.nix { inherit inputs; })
+    ++ [ inputs.claude-code.overlays.default ];
 }

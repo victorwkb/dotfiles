@@ -1,4 +1,16 @@
-{ pkgs, catppuccin, ... }:
+{ pkgs, ... }:
+let
+  catppuccin = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "catppuccin";
+    version = "unstable-2023-01-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "dreamsofcode-io";
+      repo = "catppuccin-tmux";
+      rev = "main";
+      sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
+    };
+  };
+in
 {
   enable = true;
   baseIndex = 1;
@@ -6,29 +18,29 @@
   keyMode = "vi";
   newSession = true;
   secureSocket = true;
-  # shell = "${pkgs.zsh}/bin/zsh";
   shell = "${pkgs.nushell}/bin/nu";
   shortcut = "a";
   escapeTime = 0;
 
   plugins = with pkgs.tmuxPlugins; [
-    { plugin = catppuccin;
+    {
+      plugin = catppuccin;
       extraConfig = ''
         # Catppuccin theme
         set -g @catppuccin_flavor 'macchiato'
         set -g @catppuccin_window_status_style "rounded"
-        set -g @catppuccin_window_left_separator ""
-        set -g @catppuccin_window_right_separator " "
+        set -g @catppuccin_window_left_separator ""
+        set -g @catppuccin_window_right_separator " "
         set -g @catppuccin_window_middle_separator " █"
         set -g @catppuccin_window_number_position "right"
         set -g @catppuccin_window_number_color "number"
         set -g @catppuccin_window_text_color "#W"
         set -g @catppuccin_window_current_number_color "number"
-        set -g @catppuccin_window_current_text_color "#W#{?window_zoomed_flag,(),}"
+        set -g @catppuccin_window_current_text_color "#W#{?window_zoomed_flag,(),}"
         set -g @catppuccin_status_modules_right "directory date_time"
         set -g @catppuccin_status_modules_left "session"
-        set -g @catppuccin_status_left_separator  " "
-        set -g @catppuccin_status_right_separator " "
+        set -g @catppuccin_status_left_separator  " "
+        set -g @catppuccin_status_right_separator " "
         set -g @catppuccin_status_right_separator_inverse "no"
         set -g @catppuccin_status_fill "icon"
         set -g @catppuccin_status_connect_separator "no"

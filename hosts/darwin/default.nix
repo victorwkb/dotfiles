@@ -1,34 +1,11 @@
 { pkgs, inputs, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
+  imports = [ ../../modules/system/common.nix ];
 
   environment.systemPackages = [
     pkgs.awscli
     pkgs.google-cloud-sdk
-    pkgs.bat
-    pkgs.eza
-    pkgs.fastfetch
-    pkgs.nerdfetch
-    pkgs.cbonsai
-    pkgs.cmatrix
-    pkgs.htop
-    pkgs.pipes
-    pkgs.fd
-    pkgs.fzf
-    pkgs.git
-    pkgs.lazygit
-    pkgs.neovim
-    pkgs.nodejs_22
-    pkgs.carapace
-    pkgs.nushell
-    pkgs.nu_scripts
-    pkgs.ripgrep
-    pkgs.vim
-    pkgs.wget
-    pkgs.nil
-    pkgs.nixfmt
     pkgs.ghostty-bin
-    pkgs.claude-code
   ];
 
   users.users.victorwkb = {
@@ -53,8 +30,6 @@
     onActivation.upgrade = true;
   };
 
-  nix.settings.experimental-features = "nix-command flakes";
-  programs.zsh.enable = true;
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
   system.stateVersion = 5;
 
