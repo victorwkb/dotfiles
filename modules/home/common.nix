@@ -5,7 +5,6 @@
   home.file = {
     ".config/nushell/theme.nu".source =
       "${pkgs.nu_scripts}/share/nu_scripts/themes/nu_themes/catppuccin-macchiato.nu";
-    ".config/ghostty/config".source = ../../.config/ghostty/config;
   };
 
   home.sessionPath = [
