@@ -89,6 +89,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.vicwkb = import ./hosts/nixos-wsl/home.nix;
+            home-manager.backupFileExtension = "backup";
           }
         ];
       };
