@@ -7,7 +7,7 @@ echo 'extra-experimental-features = nix-command flakes' | sudo tee /root/.config
 
 echo "==> Switching to dotfiles config from GitHub..."
 echo "    (First run fetches all flake inputs — expect several minutes)"
-sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'
+sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/fix/nixos-wsl-bootstrap#nixos'
 
 echo ""
 echo "==> Bootstrap complete!"
