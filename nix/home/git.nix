@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   enable = true;
-  userName = "victorwkb";
-  userEmail = "victorwkb@gmail.com";
+  settings.user = {
+    name = "victorwkb";
+    email = "victorwkb@gmail.com";
+  };
 }
