@@ -32,5 +32,6 @@
     tree = "eza -T";
     ltree = "eza -Tl";
     drs = "sudo darwin-rebuild switch --flake ~/dotfiles/nix/nix-darwin";
+    drsm = "sudo darwin-rebuild switch --flake 'github:victorwkb/dotfiles?dir=nix/nix-darwin'";
   };
 }

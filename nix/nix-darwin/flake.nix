@@ -7,7 +7,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -20,6 +20,7 @@
       url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
       flake = false;
     };
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs =
@@ -32,6 +33,7 @@
       homebrew-cask,
       home-manager,
       sf-mono-liga-src,
+      claude-code,
     }:
     let
       configuration =
@@ -64,15 +66,16 @@
             pkgs.vim
             pkgs.wget
             pkgs.nil
-            pkgs.nixfmt-rfc-style
-            pkgs.direnv
+            pkgs.nixfmt
+            pkgs.ghostty-bin
+            pkgs.claude-code
           ];
 
           users.users.victorwkb = {
             name = "victorwkb";
             home = "/Users/victorwkb";
           };
-          
+
           system.primaryUser = "victorwkb";
 
           homebrew = {
@@ -82,7 +85,6 @@
             ];
             casks = [
               "aerospace"
-              "ghostty"
               "jordanbaird-ice"
               "font-sf-mono"
             ];
@@ -134,6 +136,7 @@
                 '';
               };
             })
+            claude-code.overlays.default
           ];
         };
     in
