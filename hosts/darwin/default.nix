@@ -25,7 +25,7 @@
     ];
     masApps = { };
     taps = [ "nikitabobko/tap" ];
-    onActivation.cleanup = "zap";
+    onActivation.cleanup = "uninstall";
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
   };
@@ -46,7 +46,5 @@
   };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
-  nixpkgs.overlays =
-    (import ../../overlays/default.nix { inherit inputs; })
-    ++ [ inputs.claude-code.overlays.default ];
+  nixpkgs.overlays = import ../../overlays/default.nix { inherit inputs; };
 }

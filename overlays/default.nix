@@ -1,5 +1,6 @@
 { inputs }:
 [
+  inputs.claude-code.overlays.default
   (final: prev: {
     sf-mono-liga-bin = prev.stdenvNoCC.mkDerivation {
       pname = "sf-mono-liga-bin";

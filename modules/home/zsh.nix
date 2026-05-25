@@ -6,7 +6,6 @@
     v = "nvim";
     python = "python3";
     pip = "pip3";
-    wsl = "wsl.exe";
 
     dot = "cd ~/dotfiles";
 
@@ -20,38 +19,18 @@
     tree = "eza -T";
     ltree = "eza -Tl";
 
-    drs = "darwin-rebuild switch --flake ~/dotfiles#Victors-MacBook-Pro";
+    drs = "sudo darwin-rebuild switch --flake ~/dotfiles#macos";
+    drsm = "sudo darwin-rebuild switch --flake 'github:victorwkb/dotfiles/main#macos'";
     nrs = "sudo nixos-rebuild switch --flake ~/dotfiles#nixos";
+    nrsm = "sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'";
   };
 
   initContent = ''
     export BAT_THEME="Catppuccin Macchiato"
-
-    export NVM_DIR="$HOME/.config/nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-
     export VIM="nvim"
     export XDG_CONFIG_HOME="$HOME/.config"
-    export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
     export GIT_EDITOR="$VIM"
     export DOTFILES="$HOME/dotfiles"
-    export NIX_CONF_DIR="$HOME/.config/nix"
-    export STOW_FOLDERS="aerospace,alacritty,bin,kitty,nvim,starship,tmux,zsh"
-
-    addToPath() {
-      if [[ "$PATH" != *"$1"* ]]; then
-        export PATH="$PATH:$1"
-      fi
-    }
-
-    addToPathFront() {
-      if [[ "$PATH" != *"$1"* ]]; then
-        export PATH="$1:$PATH"
-      fi
-    }
-
-    addToPathFront "$HOME/dotfiles/.config/bin/.local/scripts"
 
     # Starship and zoxide init
     eval "$(starship init zsh)"

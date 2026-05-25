@@ -19,7 +19,6 @@
   };
 
   programs.nix-ld.enable = true;
-  services.xserver.enable = true;
 
   users.users.vicwkb = {
     isNormalUser = true;
@@ -29,7 +28,5 @@
   };
   users.groups.vicwkb = { };
 
-  nixpkgs.overlays =
-    (import ../../overlays/default.nix { inherit inputs; })
-    ++ [ inputs.claude-code.overlays.default ];
+  nixpkgs.overlays = import ../../overlays/default.nix { inherit inputs; };
 }

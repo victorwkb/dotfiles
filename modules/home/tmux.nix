@@ -80,8 +80,6 @@ in
     set -g detach-on-destroy off
     set-option -g focus-events on
     bind -T copy-mode-vi v send-keys -X begin-selection
-    bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
-    bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy | tmux load-buffer - && tmux paste-buffer"
 
     # vim-like pane switching
     bind -r ^ last-window
