@@ -26,9 +26,9 @@ in
     $env.PATH = ($env.PATH | prepend "/run/wrappers/bin")
   '';
 
-  home.file.".claude".source = mkOutOfStoreSymlink "/home/vicwkb/obsidian/claude-code-llm-wiki";
+  home.file.".claude".source = mkOutOfStoreSymlink "/home/vicwkb/obsidian/claude-code-wiki";
   home.activation.ensureClaudeVault = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    mkdir -p "/home/vicwkb/obsidian/claude-code-llm-wiki"
+    mkdir -p "/home/vicwkb/obsidian/claude-code-wiki"
   '';
 
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
