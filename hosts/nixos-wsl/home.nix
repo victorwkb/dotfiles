@@ -20,15 +20,16 @@ in
 
   xdg.configFile.nvim.source = mkOutOfStoreSymlink "/home/vicwkb/dotfiles/nvim";
 
+  home.file.".claude".source = mkOutOfStoreSymlink "/home/vicwkb/obsidian/claude-code-wiki";
+
+  home.activation.ensureClaudeVault = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+    mkdir -p "/home/vicwkb/obsidian/claude-code-wiki"
+  '';
+
   home.sessionPath = [ "/run/wrappers/bin" ];
 
   programs.nushell.extraEnv = ''
     $env.PATH = ($env.PATH | prepend "/run/wrappers/bin")
-  '';
-
-  home.file.".claude".source = mkOutOfStoreSymlink "/home/vicwkb/obsidian/claude-code-wiki";
-  home.activation.ensureClaudeVault = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    mkdir -p "/home/vicwkb/obsidian/claude-code-wiki"
   '';
 
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
