@@ -38,54 +38,27 @@ You will be logged in as the default `nixos` user.
 curl -fsSL https://raw.githubusercontent.com/victorwkb/dotfiles/main/scripts/bootstrap-wsl.sh | bash
 ```
 
-This will:
-1. Enable nix flakes by writing to `/root/.config/nix/nix.conf` (system `/etc/nix/nix.conf` is read-only on NixOS)
-2. Run `nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos-bootstrap'`
+The script is self-guiding and runs in stages. Follow the instructions it prints after each run. Re-run the same command as prompted until it reports done.
 
-The bootstrap config is intentionally minimal (git, vim, wget, curl, nix-ld) — no overlays, no home-manager, no heavy packages. This guarantees a bootable system on the first switch.
-
-> **Note:** The first run fetches all flake inputs including large homebrew taps (unified flake). Expect several minutes.
-
-When it completes, exit and re-launch WSL:
-
-```powershell
-wsl -d NixOS
-```
-
-You will now be logged in as `vicwkb`.
+> **Note:** The first run fetches all flake inputs including large homebrew taps (unified flake). Expect several minutes.  
+> The first run will also disconnect your WSL session when systemd restarts — this is expected.
 
 ---
 
-### Step 3 — Clone dotfiles and apply full config
+### Step 3 — Verify
 
 ```sh
-git clone https://github.com/victorwkb/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-git submodule update --init --recursive
+which nu && which nvim && which claude
+git config user.name
+git config user.email
+tmux new -s main
 ```
 
-Then upgrade to the full NixOS config (installs all tools, home-manager, shell, etc.):
-
-```sh
-sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'
-```
-
-From here use the shell aliases for rebuilds:
+From here use the shell aliases for future rebuilds:
 
 ```sh
 nrs   # sudo nixos-rebuild switch --flake ~/dotfiles#nixos
 nrsm  # sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'
-```
-
----
-
-### Step 4 — Verify
-
-```sh
-which nu && which nvim && which claude
-git config user.name    # victorgoh-zen
-git config user.email   # victor.goh@zenenergy.com.au
-tmux new -s main        # tmux with nushell as default shell
 ```
 
 ---
@@ -95,8 +68,8 @@ tmux new -s main        # tmux with nushell as default shell
 | Issue | Explanation |
 |-------|-------------|
 | Long first fetch | `homebrew-core` and `homebrew-cask` are fetched even for WSL due to the unified flake. Normal. |
-| nvim opens without config | The nvim symlink points to `~/dotfiles/nvim`. Dangling until Step 3 is done. nvim still works. |
+| nvim opens without config | The nvim symlink points to `~/dotfiles/nvim`. Dangling until the script clones dotfiles. nvim still works. |
 | `SFMono Nerd Font Lig` not found in ghostty | Run `fc-cache -fv` after first rebuild to refresh the font cache. |
-| `sudo` works without password | Intentional — `security.sudo.wheelNeedsPassword = false` is set for `vicwkb`. |
+| `sudo` works without password | Intentional — `security.sudo.wheelNeedsPassword = false` is set. |
 | Existing dotfiles renamed to `.backup` | `home-manager.backupFileExtension = "backup"` is set. Conflicting files are renamed rather than blocking the rebuild. |
-| Need to recover after a bad rebuild | Log in as the preserved `nixos` user: `wsl -d NixOS -u nixos`, then fix and re-run `sudo nixos-rebuild switch`. |
+| Need to recover after a bad rebuild | Log in as the fallback user: `wsl -d NixOS -u nixos`, then fix and re-run `sudo nixos-rebuild switch`. |

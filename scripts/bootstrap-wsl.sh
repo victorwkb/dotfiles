@@ -1,18 +1,47 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "==> Enabling nix flakes..."
-sudo mkdir -p /root/.config/nix
-echo 'extra-experimental-features = nix-command flakes' | sudo tee /root/.config/nix/nix.conf > /dev/null
+FLAKE="github:victorwkb/dotfiles/fix/nixos-wsl-bootstrap"
+STAGE1_MARKER="/etc/nixos-bootstrap-stage1-done"
+DOTFILES_DIR="$HOME/dotfiles"
 
-echo "==> Applying minimal bootstrap config from GitHub..."
-echo "    (First run fetches all flake inputs — expect several minutes)"
-sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/fix/nixos-wsl-bootstrap#nixos-bootstrap'
+if [[ -f "$STAGE1_MARKER" ]]; then
+  # Stage 2: apply full NixOS config
+  echo "==> Stage 1 complete — applying full NixOS config..."
+  echo "    (This fetches all flake inputs — expect several minutes)"
+  echo ""
+  sudo nixos-rebuild switch --flake "${FLAKE}#nixos"
+  echo ""
+  echo "==> Done! Re-run this script to clone dotfiles."
 
-echo ""
-echo "==> Bootstrap complete!"
-echo "    Exit WSL and re-launch to log in as vicwkb:"
-echo "    wsl -d NixOS"
-echo ""
-echo "    Then clone dotfiles and run: nrsm"
-echo "    to upgrade to the full config."
+elif command -v nu &>/dev/null; then
+  # Stage 3: clone dotfiles (full config is active, nushell is available)
+  if [[ -d "$DOTFILES_DIR" ]]; then
+    echo "==> Dotfiles already cloned at $DOTFILES_DIR. Nothing to do."
+  else
+    echo "==> Stage 3: Cloning dotfiles..."
+    git clone https://github.com/victorwkb/dotfiles.git "$DOTFILES_DIR"
+    cd "$DOTFILES_DIR"
+    git submodule update --init --recursive
+    echo ""
+    echo "==> Done! Use 'nrs' or 'nrsm' for future rebuilds."
+  fi
+
+else
+  # Stage 1: minimal bootstrap
+  echo "==> Enabling nix flakes..."
+  sudo mkdir -p /root/.config/nix
+  echo 'extra-experimental-features = nix-command flakes' | sudo tee /root/.config/nix/nix.conf > /dev/null
+
+  echo ""
+  echo "==> Stage 1: Applying minimal bootstrap config..."
+  echo "    systemd will restart mid-rebuild — your WSL session will disconnect."
+  echo "    This is expected. When disconnected:"
+  echo "      1. wsl --shutdown          (in PowerShell)"
+  echo "      2. wsl -d NixOS            (relaunch)"
+  echo "      3. Re-run this script      (applies full config)"
+  echo ""
+  sudo nixos-rebuild switch --flake "${FLAKE}#nixos-bootstrap"
+  echo ""
+  echo "==> Stage 1 complete. Run 'wsl --shutdown', relaunch, then re-run this script."
+fi
