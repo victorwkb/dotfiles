@@ -60,16 +60,3 @@ From here use the shell aliases for future rebuilds:
 nrs   # sudo nixos-rebuild switch --flake ~/dotfiles#nixos
 nrsm  # sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'
 ```
-
----
-
-### Known issues
-
-| Issue | Explanation |
-|-------|-------------|
-| Long first fetch | `homebrew-core` and `homebrew-cask` are fetched even for WSL due to the unified flake. Normal. |
-| nvim opens without config | The nvim symlink points to `~/dotfiles/nvim`. Dangling until the script clones dotfiles. nvim still works. |
-| `SFMono Nerd Font Lig` not found in ghostty | Run `fc-cache -fv` after first rebuild to refresh the font cache. |
-| `sudo` works without password | Intentional — `security.sudo.wheelNeedsPassword = false` is set. |
-| Existing dotfiles renamed to `.backup` | `home-manager.backupFileExtension = "backup"` is set. Conflicting files are renamed rather than blocking the rebuild. |
-| Need to recover after a bad rebuild | Log in as root: `wsl -d NixOS -u root`, then fix and re-run `nixos-rebuild switch`. |
