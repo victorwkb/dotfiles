@@ -10,5 +10,14 @@
     pkgs.curl
   ];
 
+  security.sudo.wheelNeedsPassword = false;
   users.mutableUsers = true;
+
+  users.users.vicwkb = {
+    isNormalUser = true;
+    group = "vicwkb";
+    extraGroups = [ "wheel" ];
+    initialPassword = "nixos";
+  };
+  users.groups.vicwkb = { };
 }
