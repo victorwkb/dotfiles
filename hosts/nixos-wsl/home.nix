@@ -33,6 +33,9 @@ in
 
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
   programs.zsh.shellAliases.wsl = "wsl.exe";
+  programs.zsh.initContent = ''
+    export PATH="/run/wrappers/bin:$PATH"
+  '';
 
   programs.tmux.extraConfig = ''
     bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe"
