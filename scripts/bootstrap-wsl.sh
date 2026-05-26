@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FLAKE="github:victorwkb/dotfiles/fix/nixos-wsl-bootstrap"
+FLAKE="github:victorwkb/dotfiles/main"
 STAGE1_MARKER="/var/lib/nixos-bootstrap-stage1-done"
 DOTFILES_DIR="$HOME/dotfiles"
 
