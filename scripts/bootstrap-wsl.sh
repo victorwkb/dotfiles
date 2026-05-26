@@ -36,11 +36,8 @@ else
 
   echo ""
   echo "==> Stage 1: Applying minimal bootstrap config..."
-  echo "    systemd will restart mid-rebuild — your WSL session will disconnect."
-  echo "    This is expected. When disconnected:"
-  echo "      1. wsl --shutdown          (in PowerShell)"
-  echo "      2. wsl -d NixOS            (relaunch)"
-  echo "      3. Re-run this script      (applies full config)"
+  echo "    systemd may restart mid-rebuild and disconnect your session — this is expected."
+  echo "    When ready, relaunch WSL and re-run this script to apply the full config."
   echo ""
   sudo touch "$STAGE1_MARKER"
   sudo nixos-rebuild switch --flake "${FLAKE}#nixos-bootstrap" || {
@@ -48,5 +45,6 @@ else
     exit 1
   }
   echo ""
-  echo "==> Stage 1 complete. Run 'wsl --shutdown', relaunch, then re-run this script."
+  echo "==> Stage 1 complete."
+  echo "    Run 'wsl --shutdown' in PowerShell, then relaunch and re-run this script."
 fi

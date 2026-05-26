@@ -8,6 +8,7 @@
   };
 
   home.sessionPath = [
+    "/run/wrappers/bin"
     "/run/current-system/sw/bin"
     "$HOME/.nix-profile/bin"
   ];
