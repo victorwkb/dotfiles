@@ -23,13 +23,6 @@
   security.sudo.wheelNeedsPassword = false;
   users.mutableUsers = true;
 
-  # Preserve the original NixOS-WSL bootstrap user as a recovery fallback
-  users.users.nixos = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    initialPassword = "nixos";
-  };
-
   users.users.vicwkb = {
     isNormalUser = true;
     group = "vicwkb";

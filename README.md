@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/victorwkb/dotfiles/main/scripts/boo
 The script is self-guiding and runs in stages. Follow the instructions it prints after each run. Re-run the same command as prompted until it reports done.
 
 > **Note:** The first run fetches all flake inputs including large homebrew taps (unified flake). Expect several minutes.  
-> The first run will also disconnect your WSL session when systemd restarts — this is expected.
+> systemd may restart mid-rebuild and disconnect your session — this is expected. Just relaunch WSL and re-run the script.
 
 ---
 
@@ -72,4 +72,4 @@ nrsm  # sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'
 | `SFMono Nerd Font Lig` not found in ghostty | Run `fc-cache -fv` after first rebuild to refresh the font cache. |
 | `sudo` works without password | Intentional — `security.sudo.wheelNeedsPassword = false` is set. |
 | Existing dotfiles renamed to `.backup` | `home-manager.backupFileExtension = "backup"` is set. Conflicting files are renamed rather than blocking the rebuild. |
-| Need to recover after a bad rebuild | Log in as the fallback user: `wsl -d NixOS -u nixos`, then fix and re-run `sudo nixos-rebuild switch`. |
+| Need to recover after a bad rebuild | Log in as root: `wsl -d NixOS -u root`, then fix and re-run `nixos-rebuild switch`. |
