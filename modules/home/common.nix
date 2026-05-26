@@ -22,6 +22,5 @@
     nushell = import ./nushell.nix { inherit pkgs; };
     carapace = import ./carapace.nix { inherit pkgs; };
     yazi = import ./yazi.nix { inherit pkgs; };
-    vscode = import ./vscode.nix { inherit pkgs; };
   };
 }

@@ -11,6 +11,8 @@ in
 {
   imports = [ ../../modules/home/common.nix ];
 
+  programs.vscode = import ../../modules/home/vscode.nix { inherit pkgs; };
+
   home.username = "victorwkb";
   home.homeDirectory = "/Users/victorwkb";
   home.stateVersion = "26.05";
