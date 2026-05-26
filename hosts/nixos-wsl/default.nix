@@ -12,10 +12,12 @@
     pkgs.uv
   ];
 
+  # DISPLAY and WAYLAND_DISPLAY for WSLg GUI apps.
+  # XDG_RUNTIME_DIR is intentionally omitted — systemd-logind owns it (/run/user/<uid>).
+  # Overriding it breaks the dbus socket and causes user session activation to fail.
   environment.sessionVariables = {
     DISPLAY = ":0";
     WAYLAND_DISPLAY = "wayland-0";
-    XDG_RUNTIME_DIR = "/mnt/wslg/runtime-dir";
   };
 
   programs.nix-ld.enable = true;
