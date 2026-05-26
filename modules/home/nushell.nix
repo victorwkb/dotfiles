@@ -16,7 +16,6 @@
 
   extraEnv = ''
     $env.EDITOR = "nvim"
-    $env.PATH = ($env.PATH | prepend "/run/wrappers/bin")
   '';
 
   shellAliases = {

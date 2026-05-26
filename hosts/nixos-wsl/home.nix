@@ -19,6 +19,12 @@ in
 
   xdg.configFile.nvim.source = mkOutOfStoreSymlink "/home/vicwkb/dotfiles/nvim";
 
+  home.sessionPath = [ "/run/wrappers/bin" ];
+
+  programs.nushell.extraEnv = ''
+    $env.PATH = ($env.PATH | prepend "/run/wrappers/bin")
+  '';
+
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
   programs.zsh.shellAliases.wsl = "wsl.exe";
 
