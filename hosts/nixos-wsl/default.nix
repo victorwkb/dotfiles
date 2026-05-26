@@ -12,12 +12,6 @@
     pkgs.uv
   ];
 
-  environment.sessionVariables = {
-    DISPLAY = ":0";
-    WAYLAND_DISPLAY = "wayland-0";
-    XDG_RUNTIME_DIR = "/mnt/wslg/runtime-dir";
-  };
-
   programs.nix-ld.enable = true;
 
   security.sudo.wheelNeedsPassword = false;

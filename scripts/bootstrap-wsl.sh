@@ -20,8 +20,28 @@ elif command -v nu &>/dev/null; then
   if [[ -d "$DOTFILES_DIR" ]]; then
     echo "==> Dotfiles already cloned at $DOTFILES_DIR. Nothing to do."
   else
+    # SSH key setup — required for submodule clone (uses SSH URL)
+    if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
+      echo "==> No SSH key found. Generating one..."
+      mkdir -p "$HOME/.ssh"
+      ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" -C "$(hostname)"
+    fi
+    echo ""
+    echo "==> Add this SSH public key to your GitHub account before continuing:"
+    echo "    https://github.com/settings/ssh/new"
+    echo ""
+    cat "$HOME/.ssh/id_ed25519.pub"
+    echo ""
+    read -rp "    Press Enter once the key is added to GitHub..."
+    echo ""
+    echo "==> Verifying SSH access to GitHub..."
+    ssh -T git@github.com 2>&1 | grep -q "successfully authenticated" || {
+      echo "    SSH verification failed. Check that the key was added and try again."
+      exit 1
+    }
+    echo ""
     echo "==> Stage 3: Cloning dotfiles..."
-    git clone https://github.com/victorwkb/dotfiles.git "$DOTFILES_DIR"
+    git clone git@github.com:victorwkb/dotfiles.git "$DOTFILES_DIR"
     cd "$DOTFILES_DIR"
     git submodule update --init --recursive
     echo ""

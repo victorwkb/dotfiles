@@ -1,12 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}:
-
-let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-in
+{ config, pkgs, ... }:
 {
   imports = [
     ../../modules/home/common.nix
@@ -17,8 +9,6 @@ in
   home.homeDirectory = "/home/vicwkb";
   home.stateVersion = "25.05";
 
-  xdg.configFile.nvim.source = mkOutOfStoreSymlink "/home/vicwkb/dotfiles/nvim";
-
   home.sessionPath = [ "/run/wrappers/bin" ];
 
   programs.nushell.extraEnv = ''
@@ -27,6 +17,18 @@ in
 
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
   programs.zsh.shellAliases.wsl = "wsl.exe";
+  programs.zsh.initContent = ''
+    export PATH="/run/wrappers/bin:$PATH"
+    _wcode="$(wslpath "$(powershell.exe -c '$env:USERPROFILE' | tr -d '\r\n')")/AppData/Local/Programs/Microsoft VS Code/bin/code"
+    [[ -f "$_wcode" ]] && alias code="$_wcode"
+  '';
+
+  programs.nushell.extraConfig = ''
+    def --wrapped code [...args] {
+      let p = $"(wslpath (powershell.exe -c '$env:USERPROFILE' | str trim))/AppData/Local/Programs/Microsoft VS Code/bin/code"
+      ^$p ...$args
+    }
+  '';
 
   programs.tmux.extraConfig = ''
     bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe"

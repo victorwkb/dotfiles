@@ -1,20 +1,12 @@
-{
-  config,
-  pkgs,
-  ...
-}:
-
-let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-in
+{ pkgs, ... }:
 {
   imports = [ ../../modules/home/common.nix ];
+
+  programs.vscode = import ../../modules/home/vscode.nix { inherit pkgs; };
 
   home.username = "victorwkb";
   home.homeDirectory = "/Users/victorwkb";
   home.stateVersion = "26.05";
-
-  xdg.configFile.nvim.source = mkOutOfStoreSymlink "/Users/victorwkb/dotfiles/nvim";
 
   home.file.".config/aerospace/aerospace.toml".source = ../../.config/aerospace/aerospace.toml;
   home.file.".config/ghostty/config".source = ../../.config/ghostty/config;
