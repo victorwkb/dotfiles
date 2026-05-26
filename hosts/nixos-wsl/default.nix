@@ -21,6 +21,7 @@
   programs.nix-ld.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
+  users.mutableUsers = true;
 
   users.users.vicwkb = {
     isNormalUser = true;

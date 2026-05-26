@@ -93,5 +93,22 @@
           }
         ];
       };
+
+      # Minimal first-pass config: no overlays, no home-manager, bash shell.
+      # Used by the bootstrap script to get a guaranteed-bootable system.
+      # After cloning dotfiles, run `nrsm` to upgrade to the full #nixos config.
+      nixosConfigurations.nixos-bootstrap = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/nixos-wsl/bootstrap.nix
+          nixos-wsl.nixosModules.default
+          {
+            system.stateVersion = "25.05";
+            wsl.enable = true;
+            wsl.defaultUser = "vicwkb";
+          }
+        ];
+      };
     };
 }

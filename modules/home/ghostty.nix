@@ -3,7 +3,7 @@
   programs.ghostty = {
     enable = true;
     settings = {
-      theme = "catppuccin-macchiato";
+      theme = "Catppuccin Macchiato";
       background-opacity = 0.85;
       background-blur-radius = 20;
       font-size = 16;

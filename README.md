@@ -15,7 +15,7 @@ Go from a fresh Windows machine to a fully configured NixOS-WSL environment.
 - Windows 10/11 with WSL2 enabled
 - Download the latest NixOS-WSL installer from:  
   https://github.com/nix-community/NixOS-WSL/releases  
-  Get `nixos-wsl.tar.gz`
+  Get `nixos.wsl` (not the `.tar.gz`)
 
 ---
 
@@ -24,7 +24,7 @@ Go from a fresh Windows machine to a fully configured NixOS-WSL environment.
 Run in **PowerShell**:
 
 ```powershell
-wsl --import NixOS $env:USERPROFILE\NixOS\ $env:USERPROFILE\Downloads\nixos-wsl.tar.gz
+wsl --install --from-file $env:USERPROFILE\Downloads\nixos.wsl
 wsl -d NixOS
 ```
 
@@ -38,48 +38,27 @@ You will be logged in as the default `nixos` user.
 curl -fsSL https://raw.githubusercontent.com/victorwkb/dotfiles/main/scripts/bootstrap-wsl.sh | bash
 ```
 
-This will:
-1. Enable nix flakes by appending to `/etc/nix/nix.conf`
-2. Run `nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'`
+The script is self-guiding and runs in stages. Follow the instructions it prints after each run. Re-run the same command as prompted until it reports done.
 
-> **Note:** The first run fetches all flake inputs including large homebrew taps (unified flake). Expect several minutes.
-
-When it completes, exit and re-launch WSL:
-
-```powershell
-wsl -d NixOS
-```
-
-You will now be logged in as `vicwkb`.
+> **Note:** The first run fetches all flake inputs including large homebrew taps (unified flake). Expect several minutes.  
+> systemd may restart mid-rebuild and disconnect your session — this is expected. Just relaunch WSL and re-run the script.
 
 ---
 
-### Step 3 — Clone dotfiles locally
-
-The GitHub bootstrap is complete but local rebuilds need the repo on disk:
+### Step 3 — Verify
 
 ```sh
-git clone https://github.com/victorwkb/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-git submodule update --init --recursive
+which nu && which nvim && which claude
+git config user.name
+git config user.email
+tmux new -s main
 ```
 
-From here use the shell aliases for rebuilds:
+From here use the shell aliases for future rebuilds:
 
 ```sh
 nrs   # sudo nixos-rebuild switch --flake ~/dotfiles#nixos
 nrsm  # sudo nixos-rebuild switch --flake 'github:victorwkb/dotfiles/main#nixos'
-```
-
----
-
-### Step 4 — Verify
-
-```sh
-which nu && which nvim && which claude
-git config user.name    # victorgoh-zen
-git config user.email   # victor.goh@zenenergy.com.au
-tmux new -s main        # tmux with nushell as default shell
 ```
 
 ---
@@ -89,7 +68,8 @@ tmux new -s main        # tmux with nushell as default shell
 | Issue | Explanation |
 |-------|-------------|
 | Long first fetch | `homebrew-core` and `homebrew-cask` are fetched even for WSL due to the unified flake. Normal. |
-| nvim opens without config | The nvim symlink points to `~/dotfiles/nvim`. Dangling until Step 3 is done. nvim still works. |
+| nvim opens without config | The nvim symlink points to `~/dotfiles/nvim`. Dangling until the script clones dotfiles. nvim still works. |
 | `SFMono Nerd Font Lig` not found in ghostty | Run `fc-cache -fv` after first rebuild to refresh the font cache. |
-| `sudo` works without password | Intentional — `security.sudo.wheelNeedsPassword = false` is set for `vicwkb`. |
+| `sudo` works without password | Intentional — `security.sudo.wheelNeedsPassword = false` is set. |
 | Existing dotfiles renamed to `.backup` | `home-manager.backupFileExtension = "backup"` is set. Conflicting files are renamed rather than blocking the rebuild. |
+| Need to recover after a bad rebuild | Log in as root: `wsl -d NixOS -u root`, then fix and re-run `nixos-rebuild switch`. |
