@@ -1,13 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-
-let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-in
+{ config, pkgs, ... }:
 {
   imports = [
     ../../modules/home/common.nix
@@ -17,14 +8,6 @@ in
   home.username = "vicwkb";
   home.homeDirectory = "/home/vicwkb";
   home.stateVersion = "25.05";
-
-  xdg.configFile.nvim.source = mkOutOfStoreSymlink "/home/vicwkb/dotfiles/nvim";
-
-  home.file.".claude".source = mkOutOfStoreSymlink "/home/vicwkb/obsidian/claude-code-wiki";
-
-  home.activation.ensureClaudeVault = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    mkdir -p "/home/vicwkb/obsidian/claude-code-wiki"
-  '';
 
   home.sessionPath = [ "/run/wrappers/bin" ];
 
