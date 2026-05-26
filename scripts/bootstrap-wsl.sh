@@ -2,7 +2,7 @@
 set -euo pipefail
 
 FLAKE="github:victorwkb/dotfiles/fix/nixos-wsl-bootstrap"
-STAGE1_MARKER="/etc/nixos-bootstrap-stage1-done"
+STAGE1_MARKER="/var/lib/nixos-bootstrap-stage1-done"
 DOTFILES_DIR="$HOME/dotfiles"
 
 if [[ -f "$STAGE1_MARKER" ]]; then
@@ -11,6 +11,7 @@ if [[ -f "$STAGE1_MARKER" ]]; then
   echo "    (This fetches all flake inputs — expect several minutes)"
   echo ""
   sudo nixos-rebuild switch --flake "${FLAKE}#nixos"
+  sudo rm -f "$STAGE1_MARKER"
   echo ""
   echo "==> Done! Re-run this script to clone dotfiles."
 
@@ -41,7 +42,11 @@ else
   echo "      2. wsl -d NixOS            (relaunch)"
   echo "      3. Re-run this script      (applies full config)"
   echo ""
-  sudo nixos-rebuild switch --flake "${FLAKE}#nixos-bootstrap"
+  sudo touch "$STAGE1_MARKER"
+  sudo nixos-rebuild switch --flake "${FLAKE}#nixos-bootstrap" || {
+    sudo rm -f "$STAGE1_MARKER"
+    exit 1
+  }
   echo ""
   echo "==> Stage 1 complete. Run 'wsl --shutdown', relaunch, then re-run this script."
 fi
