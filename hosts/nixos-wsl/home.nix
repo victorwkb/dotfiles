@@ -20,7 +20,7 @@
   programs.zsh.initContent = ''
     export PATH="/run/wrappers/bin:$PATH"
     _wcode="$(wslpath "$(powershell.exe -c '$env:USERPROFILE' | tr -d '\r\n')")/AppData/Local/Programs/Microsoft VS Code/bin/code"
-    [[ -f "$_wcode" ]] && alias code="$_wcode"
+    [[ -f "$_wcode" ]] && code() { "$_wcode" "$@"; }
   '';
 
   programs.nushell.extraConfig = ''
