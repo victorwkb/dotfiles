@@ -36,13 +36,13 @@ in
   programs.zsh.shellAliases.wsl = "wsl.exe";
   programs.zsh.initContent = ''
     export PATH="/run/wrappers/bin:$PATH"
-    _wcode="/mnt/c/Users/$(cmd.exe /c 'echo %USERNAME%' 2>/dev/null | tr -d '\r\n')/AppData/Local/Programs/Microsoft VS Code/bin/code"
-    [[ -x "$_wcode" ]] && alias code="$_wcode"
+    _wcode="$(wslpath "$(powershell.exe -c '$env:USERPROFILE' | tr -d '\r\n')")/AppData/Local/Programs/Microsoft VS Code/bin/code"
+    [[ -f "$_wcode" ]] && alias code="$_wcode"
   '';
 
   programs.nushell.extraConfig = ''
     def --wrapped code [...args] {
-      let p = $"/mnt/c/Users/(cmd.exe /c 'echo %USERNAME%' | str trim)/AppData/Local/Programs/Microsoft VS Code/bin/code"
+      let p = $"(wslpath (powershell.exe -c '$env:USERPROFILE' | str trim))/AppData/Local/Programs/Microsoft VS Code/bin/code"
       ^$p ...$args
     }
   '';
