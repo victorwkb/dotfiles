@@ -83,6 +83,7 @@
             system.stateVersion = "25.05";
             wsl.enable = true;
             wsl.defaultUser = "vicwkb";
+            wsl.interop.register = true;
           }
           home-manager.nixosModules.home-manager
           {
